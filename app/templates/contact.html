@@ -1,4 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container">
+    <h1>Hello Contact</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <div id="alertMessage" class="my-5 alert alert-{{message.tags}}{% if message.tags == 'error' %} bg-danger-subtle text-emphasis-danger {% endif %}" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+         <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName">
+        </div>
+         <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+        </div>
+        <input type="submit" value="Send" class="btn btn-primary">
+    </form>
+</div>
 <h1>Hello Contact</h1>
+<script>
+    document.addEventListener("DOMContentLoaded",
+    function(){
+        const alertMessage = document.getElementById("alertMessage")
+        if(alertMessage){
+            setTimeout(()=>{
+                const bsAlert = new bootstrap.Alert(alertMessage)
+                bsAlert.close()
+            },5000)
+        }
+    }
+    )
+</script>
 {% endblock %}

@@ -5,4 +5,29 @@
     <img src="{% static 'images/1.png' %}" alt="" class="banner_img">
 </div>
 <h1>Hello World</h1>
+<div class="container">
+    <h1>All Items</h1>
+    <div class="row">
+        {% comment %}
+        item eshte cfaredo => items esht key tek dictionary
+        {% endcomment %}
+        {% for item in items %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{item.item_image.url}}" class="card-img-top h-100" alt="...">
+                    <div class="card-body h-100">
+                        <!-- item emri i variablit cfaredo tek for -->
+                         <!-- item_name emri i fushes tek modeli -->
+                        <h5 class="card-title">{{item.item_name}}</h5>
+                        <p class="card-text">{{item.item_description}}</p>
+                        <a href="{% url 'detailitemPage' item.pk %}" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+            </div>
+         
+        </div>
+           {% endfor %}
+    </div>
+</div>
 {% endblock %}
