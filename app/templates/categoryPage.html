@@ -1,18 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
-    <img src="{% static 'images/1.png' %}" alt="" class="banner_img">
-</div>
-<h1>Hello World</h1>
 <div class="container">
-    <h1>All Items</h1>
+    <img src="{{categoryDetail.category_image.url}}" class="img-fluid">
+    <h1>{{categoryDetail.category_name}}</h1>
+    <p>{{categoryDetail.category_Description}}</p>
+    <h1>Items in Category</h1>
     <div class="row">
-        {% comment %}
-        item eshte cfaredo => items esht key tek dictionary
-        {% endcomment %}
-        {% for item in items %}
-        <div class="col-12 col-md-6 col-lg-4">
+        {% for item in categoryItems %}
+         <div class="col-12 col-md-6 col-lg-4">
             <div class="card h-100">
                 <div class="card" style="width: 18rem;">
                     <img src="{{item.item_image.url}}" class="card-img-top h-100" alt="...">
@@ -27,22 +23,8 @@
             </div>
          
         </div>
-           {% endfor %}
-    </div>
-
-
-    <h2>Category</h2>
-    <div class="row">
-        {% for categories in categories %}
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card">
-                    <img src="{{categories.category_image.url}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a href="{% url 'categoryPage' categories.category_slug %}">{{categories.category_name}}</a>
-                    </div>
-                </div>
-            </div>
         {% endfor %}
     </div>
 </div>
+
 {% endblock %}
