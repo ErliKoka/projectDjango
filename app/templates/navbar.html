@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Pulse<span class="text-info">Lens</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'homePage' %}">Home</a>
         </li>
@@ -18,22 +18,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'galleryPage' %}">Gallery</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <p>{{request.user.username}}</p>
                     </li>
-   <li class="nav-item">
+                    <li class="nav-item">
                     <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                 </li>
                 {% else %}
@@ -45,10 +34,32 @@
                 </li>
                 {% endif %}
       </ul>
-      <form class="d-flex" role="search">
+
+    <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
+
+    <style>
+        .btn-outline-success {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
+        }
+
+        .btn-outline-success:hover {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            box-shadow: 0 6px 18px rgba(0, 114, 255, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+
     </div>
   </div>
 </nav>

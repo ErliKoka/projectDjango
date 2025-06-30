@@ -1,1 +1,81 @@
-<h1>code footer</h1>
+<footer class="bg-dark text-white pt-4 pb-2 mt-5">
+  <div class="container text-center text-md-start">
+    <div class="row">
+      
+      
+      <div class="col-md-4 mb-3">
+        <h5>
+            <span class="text-white">Pulse</span><span class="text-info">Lens</span>
+        </h5>
+
+        <p>Explore a wide range of eyewear and more.</p>
+      </div>
+
+    
+      <div class="col-md-4 mb-3">
+        <h6>Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'homePage' %}" class="footer-link text-white text-decoration-none"> Home </a></li>
+          <li><a href="{% url 'aboutPage' %}" class="footer-link text-white text-decoration-none"> About </a></li>
+          <li><a href="{% url 'galleryPage' %}" class="footer-link text-white text-decoration-none"> Gallery </a></li>
+          <li><a href="{% url 'register' %}" class="footer-link text-white text-decoration-none"> Register </a></li>
+        </ul>
+      </div>
+      
+      <style>
+  .footer-link {
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #f0150d;
+    text-decoration: underline;
+    transform: translateX(5px);
+  }
+  </style>
+
+      
+    <div class="col-md-4 mb-3">
+        <h6>Contact</h6>
+        <p>
+            Email:
+            <a href="mailto:support@pulselens.com" class="footer-link text-decoration-none">
+                support@pulselens.com
+            </a>
+        </p>
+        <p>
+            Phone:
+            <a href="tel:+355123456789" class="footer-link text-decoration-none">
+                +355 123 456 789
+            </a>
+        </p>
+        <p>
+            Location:
+            <a href="https://www.google.com/maps/place/Tirana,+Albania" target="_blank" class="footer-link text-decoration-none">
+                Tirana, Albania
+            </a>
+        </p>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+
+    <a href="https://instagram.com" target="_blank" class="footer-link" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://tiktok.com" target="_blank" class="footer-link" aria-label="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://facebook.com" target="_blank" class="footer-link" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+
+
+    </div>
+  </div>
+
+  <div class="text-center mt-3 border-top pt-2" style="font-size: 0.9rem;">
+    &copy; 2025 PulseLens. All rights reserved.
+  </div>
+</footer>
