@@ -13,3 +13,12 @@ body{
     height: 500px;
     object-fit: cover;
 }
+
+.footer-social-row i {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.footer-social-row i:hover {
+  color: #0dcaf0; 
+}

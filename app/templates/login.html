@@ -1,13 +1,116 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
 
-<body>
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Login">
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Log in</h2>
+    <form method="POST" class="elegant-form">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="id_username">Username</label>
+        {{ form.username }}
+      </div>
+      
+      <div class="form-group">
+        <label for="id_password">Password</label>
+        {{ form.password }}
+      </div>
+      
+      <button type="submit" class="login-btn">Login</button>
     </form>
-</body>
+  </div>
+</div>
+
+<style>
+  body {
+    background-color: #f4f6f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+    line-height: 1.6;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 20px;
+  }
+
+  .login-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #222;
+    letter-spacing: 0.5px;
+  }
+
+  .elegant-form {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 22px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #34495e;
+    letter-spacing: 0.3px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+  }
+
+  .login-btn:hover {
+    background: linear-gradient(to right, #0056b3, #003f88);
+    transform: translateY(-1px);
+  }
+</style>
 {% endblock %}
+
