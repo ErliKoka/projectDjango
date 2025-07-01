@@ -18,48 +18,70 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'galleryPage' %}">Gallery</a>
         </li>
-          {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <p>{{request.user.username}}</p>
-                    </li>
-                    <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'register' %}" class="nav-link">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="nav-link">Login</a>
-                </li>
-                {% endif %}
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <span class="nav-link text-light">{{ request.user.username }}</span>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'register' %}" class="nav-link">Register</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+          </li>
+        {% endif %}
       </ul>
 
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+    
+      <form class="d-flex ms-3 align-items-center" role="search" action="/search/" method="GET" style="gap: 8px;">
+        <div class="search-wrapper" style="position: relative;">
+          <input 
+            type="search"
+            name="q"
+            placeholder="Type here to search"
+            aria-label="Search"
+            style="
+              padding: 8px 14px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+              font-size: 15px;
+              width: 200px;
+              transition: border-color 0.3s ease;
+            "
+          />
+          <button 
+            type="submit"
+            style="
+              position: absolute;
+              right: 8px;
+              top: 50%;
+              transform: translateY(-50%);
+              background: none;
+              border: none;
+              color: #666;
+              cursor: pointer;
+            "
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
       </form>
-
-
-    <style>
-        .btn-outline-success {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
-        }
-
-        .btn-outline-success:hover {
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            box-shadow: 0 6px 18px rgba(0, 114, 255, 0.5);
-            transform: translateY(-2px);
-        }
-    </style>
 
     </div>
   </div>
 </nav>
+
+<style>
+
+  .search-wrapper input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .search-wrapper button:hover {
+    color: #007bff;
+  }
+</style>

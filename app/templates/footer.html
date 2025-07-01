@@ -15,10 +15,10 @@
       <div class="col-md-4 mb-3">
         <h6>Quick Links</h6>
         <ul class="list-unstyled">
-          <li><a href="{% url 'homePage' %}" class="footer-link text-white text-decoration-none"> Home </a></li>
-          <li><a href="{% url 'aboutPage' %}" class="footer-link text-white text-decoration-none"> About </a></li>
-          <li><a href="{% url 'galleryPage' %}" class="footer-link text-white text-decoration-none"> Gallery </a></li>
-          <li><a href="{% url 'register' %}" class="footer-link text-white text-decoration-none"> Register </a></li>
+          <li><a href="{% url 'homePage' %}" class="footer-link  text-decoration-none"> Home </a></li>
+          <li><a href="{% url 'aboutPage' %}" class="footer-link  text-decoration-none"> About </a></li>
+          <li><a href="{% url 'galleryPage' %}" class="footer-link  text-decoration-none"> Gallery </a></li>
+          <li><a href="{% url 'register' %}" class="footer-link text-decoration-none"> Register </a></li>
         </ul>
       </div>
       
@@ -61,15 +61,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
 
-    <a href="https://instagram.com" target="_blank" class="footer-link" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://tiktok.com" target="_blank" class="footer-link" aria-label="TikTok">
-      <i class="fab fa-tiktok"></i>
-    </a>
-    <a href="https://facebook.com" target="_blank" class="footer-link" aria-label="Facebook">
-      <i class="fab fa-facebook-f"></i>
-    </a>
+    <div class="footer-social-row text-center my-3">
+      <a href="https://instagram.com" target="_blank" class="footer-link mx-2" aria-label="Instagram">
+        <i class="fab fa-instagram fa-lg"></i>
+      </a>
+      <a href="https://tiktok.com" target="_blank" class="footer-link mx-2" aria-label="TikTok">
+        <i class="fab fa-tiktok fa-lg"></i>
+      </a>
+      <a href="https://facebook.com" target="_blank" class="footer-link mx-2" aria-label="Facebook">
+        <i class="fab fa-facebook-f fa-lg"></i>
+      </a>
+    </div>
 
 
     </div>
