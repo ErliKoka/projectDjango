@@ -22,3 +22,11 @@ body{
 .footer-social-row i:hover {
   color: #0dcaf0; 
 }
+
+.carousel-image {
+  height: 600px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+

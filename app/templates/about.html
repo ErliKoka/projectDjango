@@ -1,4 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h1>Hello About</h1>
+
+<section class="about-section py-5 text-white" style="background-color: #111;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="{% static 'images/aboutphoto.png' %}" alt="About PulseLens" class="img-fluid rounded shadow" style="margin-left: -50px;" />
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold mb-3 text-info">About Pulse<span class="text-white">Lens</span></h2>
+        <p class="lead" style="line-height: 1.7;">
+          At <strong>PulseLens</strong>, we’re redefining how people experience the world through vision. 
+          With a passion for precision optics and cutting-edge eye care, our mission is to deliver clarity, comfort, and confidence to every individual.
+        </p>
+        <p style="line-height: 1.6;">
+          Whether you're exploring advanced eye exams, premium eyewear, or our curated lens technologies, PulseLens ensures a blend of science and style in everything we offer. 
+          We're more than a brand — we're a vision care partner dedicated to your future.
+        </p>
+        <a href="{% url 'contactPage' %}" class="btn btn-info text-white mt-3 px-4 py-2 rounded-pill shadow">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-black py-5 text-white">
+  <div class="container">
+    <h3 class="text-center text-info fw-bold mb-4">Why Choose Pulse<span class="text-white">Lens</span>?</h3>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <i class="fas fa-eye fa-2x mb-3 text-info"></i>
+        <h5 class="fw-bold">Expert Vision Care</h5>
+        <p>Licensed specialists using the latest diagnostic equipment to ensure precise results.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <i class="fas fa-glasses fa-2x mb-3 text-info"></i>
+        <h5 class="fw-bold">Designer Eyewear</h5>
+        <p>Hand-picked frames and lenses that combine fashion with function.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <i class="fas fa-heartbeat fa-2x mb-3 text-info"></i>
+        <h5 class="fw-bold">Customer-First Approach</h5>
+        <p>From first visit to aftercare — we prioritize comfort, education, and satisfaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
+
