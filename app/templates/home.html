@@ -1,48 +1,115 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container-fluid">
-    <img src="{% static 'images/1.png' %}" alt="" class="banner_img">
+
+
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+  <div class="carousel-inner">
+
+    
+    <div class="carousel-item active position-relative">
+      <img src="{% static 'images/home1.png' %}" class="d-block w-100 carousel-image" alt="Clear Vision" style="max-height: 600px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+        <h1 class="display-5 fw-bold text-info">See Clearly, Live Fully</h1>
+        <p class="lead">Discover eyewear that blends precision with personality.</p>
+        <a href="{% url 'contactPage' %}" class="btn btn-info text-white px-4 py-2 rounded-pill mt-2 shadow">Book Appointment</a>
+      </div>
+      <div class="carousel-overlay"></div>
+    </div>
+
+    
+    <div class="carousel-item position-relative">
+      <img src="{% static 'images/home2.jpg' %}" class="d-block w-100 carousel-image" alt="Lens Innovation" style="max-height: 600px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+        <h1 class="display-5 fw-bold text-info">Next-Gen Lens Technology</h1>
+        <p class="lead">Explore lenses that adapt to your lifestyle.</p>
+        <a href="{% url 'aboutPage' %}" class="btn btn-info text-white px-4 py-2 rounded-pill mt-2 shadow">Learn More</a>
+      </div>
+      <div class="carousel-overlay"></div>
+    </div>
+
+    
+    <div class="carousel-item position-relative">
+      <img src="{% static 'images/home3.jpg' %}" class="d-block w-100 carousel-image" alt="Trusted Eye Care" style="max-height: 600px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+        <h1 class="display-5 fw-bold text-info">Trusted Eye Care Experts</h1>
+        <p class="lead">Your vision is our priority — from diagnosis to frames.</p>
+        <a href="{% url 'register' %}" class="btn btn-info text-white px-4 py-2 rounded-pill mt-2 shadow">Get Started</a>
+      </div>
+      <div class="carousel-overlay"></div>
+    </div>
+
+  </div>
+
+  
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-<h1>Hello World</h1>
-<div class="container">
-    <h1>All Items</h1>
-    <div class="row">
-        {% comment %}
-        item eshte cfaredo => items esht key tek dictionary
-        {% endcomment %}
-        {% for item in items %}
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{item.item_image.url}}" class="card-img-top h-100" alt="...">
-                    <div class="card-body h-100">
-                        <!-- item emri i variablit cfaredo tek for -->
-                         <!-- item_name emri i fushes tek modeli -->
-                        <h5 class="card-title">{{item.item_name}}</h5>
-                        <p class="card-text">{{item.item_description}}</p>
-                        <a href="{% url 'detailitemPage' item.pk %}" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-         
+
+
+<style>
+.carousel-caption {
+  z-index: 2;
+}
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+</style>
+
+<!-- Featured Products Section -->
+<section class="py-5 bg-black text-white">
+  <div class="container">
+    <h2 class="text-center text-info fw-bold mb-5">Featured Products</h2>
+    <div class="row g-4">
+      {% for item in items %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 bg-dark text-white shadow-sm border-info">
+          <img src="{{ item.item_image.url }}" class="card-img-top" alt="{{ item.item_name }}" style="object-fit: cover; height: 250px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ item.item_name }}</h5>
+            <p class="card-text flex-grow-1">{{ item.item_description|truncatewords:20 }}</p>
+            <a href="{% url 'detailitemPage' item.pk %}" class="btn btn-info text-white mt-3">View Details</a>
+          </div>
         </div>
-           {% endfor %}
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No items available at the moment.</p>
+      {% endfor %}
     </div>
+  </div>
+</section>
 
-
-    <h2>Category</h2>
-    <div class="row">
-        {% for categories in categories %}
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card">
-                    <img src="{{categories.category_image.url}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a href="{% url 'categoryPage' categories.category_slug %}">{{categories.category_name}}</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+<!-- Categories Section -->
+<section class="py-5" style="background-color: #111;">
+  <div class="container">
+    <h2 class="text-center text-info fw-bold mb-5">Browse by Category</h2>
+    <div class="row g-4">
+      {% for categories in categories %}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 bg-dark text-white border-light shadow-sm">
+          <img src="{{ categories.category_image.url }}" class="card-img-top" alt="{{ categories.category_name }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body text-center">
+            <a href="{% url 'categoryPage' categories.category_slug %}" class="text-info fw-bold text-decoration-none">{{ categories.category_name }}</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No categories found.</p>
+      {% endfor %}
     </div>
-</div>
+  </div>
+</section>
+
 {% endblock %}
