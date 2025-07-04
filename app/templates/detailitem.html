@@ -2,17 +2,38 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <img src="{{itemInfos.item_image.url}}" alt="" class="img-fluid">
+<div class="container py-5">
+    <div class="row align-items-center">
+        <!-- Product Image -->
+        <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <img src="{{ itemInfos.item_image.url }}" alt="{{ itemInfos.item_name }}" class="img-fluid rounded shadow">
         </div>
+
+        <!-- Product Info -->
         <div class="col-12 col-md-6">
-            <h1>{{itemInfos.item_name}}</h1>
-            <P>{{itemInfos.item_description}}</P>
-            <p>{{itemInfos.item_price}}</p>
+            <h1 class="fw-bold mb-3" style="color: #00bcd4;">{{ itemInfos.item_name }}</h1>
+
+            <!-- Price -->
+            <h4 class="text-success mb-4">€{{ itemInfos.item_price }}</h4>
+
+            <!-- Description -->
+            <p class="text-dark" style="line-height: 1.6; font-size: 1.05rem;">
+                {{ itemInfos.item_description }}
+            </p>
+
+            <form method="POST" action="{% url 'add_to_cart' %}" class="d-flex align-items-center gap-2 mt-3">
+                {% csrf_token %}
+                <input type="hidden" name="item_id" value="{{ itemInfos.id }}">
+                <input type="number" name="quantity" value="1" min="1" max="99" class="form-control" style="width: 80px;">
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+            </form>
+
+
+            <!-- Back / Call to Action -->
+            <a href="{% url 'homePage' %}" class="btn btn-info text-white mt-4 px-4 py-2" style="border-radius: 30px;">
+                ← Back to Home
+            </a>
         </div>
     </div>
 </div>
-
 {% endblock %}

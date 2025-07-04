@@ -35,9 +35,21 @@
             <a href="{% url 'login' %}" class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
           </li>
         {% endif %}
+
+        <!-- 🛒 Cart link with count -->
+        <li class="nav-item">
+          <a href="{% url 'cart' %}" class="nav-link position-relative">
+            🛒 Cart
+            {% if cart_item_count and cart_item_count > 0 %}
+              <span class="badge bg-info rounded-pill position-absolute top-0 start-100 translate-middle">
+                {{ cart_item_count }}
+              </span>
+            {% endif %}
+          </a>
+        </li>
       </ul>
 
-      
+      <!-- Search -->
       <form class="d-flex ms-3 align-items-center" role="search" action="/search/" method="GET" style="gap: 8px;">
         <div class="search-wrapper" style="position: relative;">
           <input 
@@ -75,7 +87,6 @@
   </div>
 </nav>
 
-
 <style>
   .search-wrapper input:focus {
     border-color: #0dcaf0;
@@ -86,7 +97,6 @@
     color: #0dcaf0;
   }
 
-  
   .navbar-nav .nav-link {
     position: relative;
     transition: color 0.3s ease;
