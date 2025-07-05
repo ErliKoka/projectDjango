@@ -22,21 +22,26 @@ class Collection(models.Model):
         return f"{self.collection_name}"
 
 
-# syzet
+
 class Item(models.Model):
     item_name = models.CharField(max_length=100, null=True, blank=True)
     item_description = models.TextField(max_length=2000, null=True, blank=True)
-    item_image = models.ImageField(upload_to="item/",null=True, blank=True)
+    item_image = models.ImageField(upload_to="item/", null=True, blank=True)
     item_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-
+    
     item_category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=True, blank=True
     )
     item_collection = models.ForeignKey(
         Collection, on_delete=models.CASCADE, null=True, blank=True
-     )
+    )
+    
+    # Adding the featured field
+    featured = models.BooleanField(default=False)  # Indicates if the item is featured
+
     def __str__(self):
         return f"{self.item_name}"
+
 
 class Contact(models.Model):
     contact_name = models.CharField(max_length=100, null=True, blank=True)
