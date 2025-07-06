@@ -2,11 +2,11 @@
 {% load static %}
 {% block content %}
 
-<!-- Hero Carousel -->
+
 <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
   <div class="carousel-inner">
     <div class="carousel-item active position-relative">
-      <img src="{% static 'images/home11.jpg' %}" class="d-block w-100" alt="Clear Vision" style="max-height: 600px; object-fit: cover;">
+      <img src="{% static 'images/home3.jpg' %}" class="d-block w-100" alt="Clear Vision" style="max-height: 600px; object-fit: cover;">
       <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
         <h1 class="display-5 fw-bold text-info">See Clearly, Live Fully</h1>
         <p class="lead">Discover eyewear that blends precision with personality.</p>
@@ -24,7 +24,7 @@
       <div class="carousel-overlay"></div>
     </div>
     <div class="carousel-item position-relative">
-      <img src="{% static 'images/home3.jpg' %}" class="d-block w-100" alt="Trusted Eye Care" style="max-height: 600px; object-fit: cover;">
+      <img src="{% static 'images/home11.jpg' %}" class="d-block w-100" alt="Trusted Eye Care" style="max-height: 600px; object-fit: cover;">
       <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
         <h1 class="display-5 fw-bold text-info">Trusted Eye Care Experts</h1>
         <p class="lead">Your vision is our priority — from diagnosis to frames.</p>
@@ -44,7 +44,7 @@
   </button>
 </div>
 
-<!-- Hero Overlay and Animations -->
+
 <style>
 .carousel-caption {
   z-index: 2;
@@ -73,7 +73,7 @@
 }
 </style>
 
-<!-- Featured Products Carousel -->
+
 <section style="padding: 3rem 0; background-color: #000; color: white;">
   <div class="container">
     <h2 class="text-center fw-bold mb-5" style="color: #00bcd4;">Featured Products</h2>
@@ -104,7 +104,7 @@
                 <div class="card-body d-flex flex-column text-center p-3">
                   <h5 class="card-title mb-1" style="font-weight: bold; font-size: 1.2rem;">{{ item.item_name }}</h5>
 
-                  <!-- ✅ Price prominently displayed -->
+                  
                   <p class="card-text mb-2" style="color: #00ffc8; font-size: 1.1rem;">€{{ item.item_price }}</p>
 
                   <a href="{% url 'detailitemPage' item.pk %}" class="btn text-white mt-2"
@@ -134,7 +134,7 @@
   </div>
 </section>
 
-<!-- Categories Section -->
+
 <section class="py-5" style="background-color: #111;">
   <div class="container">
     <h2 class="text-center fw-bold mb-5" style="color: #00bcd4;">Browse by Category</h2>
@@ -173,7 +173,7 @@
               {{ category.category_name }}
             </h4>
 
-            <!-- Updated link to use category slug -->
+            
             <a href="{% url 'categoryPage' category.category_slug %}" style="margin-top: 10px; display: inline-block; padding: 8px 16px; color: white; border: 2px solid white; border-radius: 50px; text-decoration: none; font-weight: 500; transition: background-color 0.3s ease, color 0.3s ease;"
                onmouseover="this.style.backgroundColor='#00bcd4'; this.style.color='black'"
                onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'">

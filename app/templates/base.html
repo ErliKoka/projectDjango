@@ -9,9 +9,12 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
   <style>
-    /* Make sure footer stays at the bottom */
+    
     body {
       display: flex;
       flex-direction: column;
@@ -22,7 +25,7 @@
       flex: 1;
     }
 
-    /* Optional: prevent double bottom border issue */
+    
     footer {
       margin-top: auto;
     }
@@ -32,7 +35,7 @@
 <body>
   {% include 'navbar.html' %}
 
-  <!-- Flash Messages -->
+  
   {% if messages %}
   <div class="container mt-3">
     {% for message in messages %}
@@ -44,7 +47,7 @@
   </div>
   {% endif %}
 
-  <!-- Main Page Content -->
+  
   <main>
     {% block content %}
     {% endblock %}
@@ -52,6 +55,8 @@
 
   {% include 'footer.html' %}
 
+ 
+  
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

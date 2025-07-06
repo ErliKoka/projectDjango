@@ -5,24 +5,26 @@ from django.contrib import messages
 from .forms import *
 from django.http import Http404
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
-# --- Home View ---
+
+
 def home(request):
-    # Fetch only featured items
-    featured_items = Item.objects.filter(featured=True)  # Fetch only featured items
-    categories = Category.objects.all()  # Fetch all categories
-
+    featured_items = Item.objects.filter(featured=True)
+    categories = Category.objects.all()
     context = {
-        "items": featured_items,  # Show only featured items in the featured section
+        "items": featured_items,
         "categories": categories,
     }
     return render(request, "home.html", context)
 
-# --- About Page ---
+
+
 def about(request):
     return render(request, "about.html")
 
-# --- Contact Page ---
+
+
 def contact(request):
     if request.method == "POST":
         firstNameInput = request.POST['firstName']
@@ -42,11 +44,13 @@ def contact(request):
             messages.error(request, "Message not sent!")
     return render(request, "contact.html")
 
-# --- Gallery Page ---
+
+
 def gallery(request):
     return render(request, "gallery.html")
 
-# --- Item Detail View ---
+
+
 def detailitem(request, id):
     try:
         itemInfos = Item.objects.get(pk=id)
@@ -56,31 +60,26 @@ def detailitem(request, id):
     context = {"itemInfos": itemInfos}
     return render(request, 'detailitem.html', context)
 
-# --- Category Page View with Pagination ---
+
+
 def categoryPage(request, slug):
     try:
-        # Fetch the category by its slug
         category_Detail = Category.objects.get(category_slug=slug)
     except Category.DoesNotExist:
         raise Http404("Category not found")
 
-    # Fetch items that belong to this category and are not featured
     categoryItems = Item.objects.filter(item_category=category_Detail, featured=False)
-
-    # Set up pagination - here we're limiting to 9 items per page
     paginator = Paginator(categoryItems, 9)
-    page_number = request.GET.get('page')  # Get the current page number from the URL
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    # Prepare the context to pass to the template
     context = {
         "categoryDetail": category_Detail,
-        "page_obj": page_obj,  # Use the paginated result in the template
+        "page_obj": page_obj,
     }
-
     return render(request, "categoryPage.html", context)
 
-# --- User Registration View ---
+
+
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -91,7 +90,8 @@ def register(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
-# --- User Login View ---
+
+
 def loginA(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -107,12 +107,14 @@ def loginA(request):
     context = {'form': form}
     return render(request, 'login.html', context)
 
-# --- User Logout View ---
+
+
 def logoutT(request):
     logout(request)
     return redirect('login')
 
-# --- Cart Views ---
+
+
 def add_to_cart(request):
     if request.method == "POST":
         item_id = request.POST.get('item_id')
@@ -137,6 +139,7 @@ def add_to_cart(request):
 
     return redirect('home')
 
+
 def cart_view(request):
     cart = request.session.get('cart', {})
     cart_items = []
@@ -155,11 +158,15 @@ def cart_view(request):
         except Item.DoesNotExist:
             pass
 
+    form = CheckoutForm()  
+
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
+        'form': form,
     }
     return render(request, 'cart.html', context)
+
 
 def update_cart(request):
     if request.method == "POST":
@@ -184,6 +191,7 @@ def update_cart(request):
 
     return redirect('cart')
 
+
 def remove_from_cart(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
@@ -201,17 +209,85 @@ def remove_from_cart(request):
 
     return redirect('cart')
 
-# --- Search View ---
+
+
 def search_view(request):
-    query = request.GET.get('q', '')  # Get the search query from the URL
-    
+    query = request.GET.get('q', '')
     if query:
-        # Search for items where item_name contains the query string (case-insensitive)
         search_results = Item.objects.filter(item_name__icontains=query)
     else:
-        search_results = Item.objects.none()  # No results if the search query is empty (optional)
-
+        search_results = Item.objects.none()
     return render(request, 'search_results.html', {
-        'search_results': search_results,  # Pass the search results to the template
-        'query': query,  # Optionally pass the query to display in the search bar again
+        'search_results': search_results,
+        'query': query,
     })
+
+
+
+
+def checkout_view(request):
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total_price = 0
+
+    
+    for item_id, quantity in cart.items():
+        try:
+            item = Item.objects.get(pk=item_id)
+            subtotal = item.item_price * quantity
+            total_price += subtotal
+            cart_items.append({
+                'item': item,
+                'quantity': quantity,
+                'subtotal': subtotal,
+            })
+        except Item.DoesNotExist:
+            pass
+
+    if request.method == "POST":
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            if not cart_items:
+                messages.error(request, "Your cart is empty.")
+                return redirect('cart')
+
+            
+            order = Order.objects.create(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                phone=form.cleaned_data['phone'],
+                address=form.cleaned_data['address'],
+                payment_method=form.cleaned_data['payment_method'],
+                total_price=total_price
+            )
+
+           
+            for cart_item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    item_name=cart_item['item'].item_name,
+                    quantity=cart_item['quantity'],
+                    price=cart_item['item'].item_price
+                )
+
+            
+            request.session['cart'] = {}
+            messages.success(request, "Order placed successfully!")
+            return redirect('checkout_success')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = CheckoutForm()
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+        'form': form,
+    }
+    return render(request, 'checkout.html', context)
+
+
+
+
+def checkout_success(request):
+    return render(request, 'checkout_success.html')

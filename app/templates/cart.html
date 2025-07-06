@@ -28,7 +28,7 @@
                     <td>€{{ cart_item.item.item_price }}</td>
                     <td>€{{ cart_item.subtotal }}</td>
                     <td>
-                        <!-- Remove button triggers modal -->
+                        
                         <button 
                         type="button"
                         class="btn btn-danger btn-sm"
@@ -53,11 +53,12 @@
             <div>
                 <button type="submit" class="btn btn-success">Update Cart</button>
                 <a href="{% url 'homePage' %}" class="btn btn-secondary ms-2">Continue Shopping</a>
+                <a href="{% url 'checkout' %}" class="btn btn-primary ms-2">Proceed to Checkout</a>
             </div>
         </div>
     </form>
 
-    <!-- Modal -->
+    
     <div class="modal fade" id="confirmRemoveModal" tabindex="-1" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form method="POST" id="removeItemForm" action="{% url 'remove_from_cart' %}">
