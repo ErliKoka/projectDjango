@@ -1,23 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-black py-3">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">Pulse<span class="text-info">Lens</span></a>
+    <a class="navbar-brand fw-bold" href="{% url 'homePage' %}">
+      Pulse<span class="text-info">Lens</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
       <ul class="navbar-nav">
+        
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'homePage' %}active{% endif %}" href="{% url 'homePage' %}">Home</a>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'aboutPage' %}active{% endif %}" href="{% url 'aboutPage' %}">About</a>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'contactPage' %}active{% endif %}" href="{% url 'contactPage' %}">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'galleryPage' %}active{% endif %}" href="{% url 'galleryPage' %}">Gallery</a>
         </li>
 
         {% if request.user.is_authenticated %}
@@ -32,11 +34,10 @@
             <a href="{% url 'register' %}" class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}">Register</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'login' %}" class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a>
+            <a href="{% url 'login' %}" class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}">Log in</a>
           </li>
         {% endif %}
 
-        <!-- 🛒 Cart link with count -->
         <li class="nav-item">
           <a href="{% url 'cart' %}" class="nav-link position-relative">
             🛒 Cart
@@ -49,7 +50,6 @@
         </li>
       </ul>
 
-      <!-- Search -->
       <form class="d-flex ms-3 align-items-center" role="search" action="/search/" method="GET" style="gap: 8px;">
         <div class="search-wrapper" style="position: relative;">
           <input 
@@ -88,18 +88,20 @@
 </nav>
 
 <style>
-  .search-wrapper input:focus {
-    border-color: #0dcaf0;
-    outline: none;
-  }
-
-  .search-wrapper button:hover {
-    color: #0dcaf0;
-  }
-
+  
   .navbar-nav .nav-link {
     position: relative;
     transition: color 0.3s ease;
+    display: inline-block; 
+    padding: 8px 15px; 
+    background-color: transparent;
+    border-radius: 5px;
+  }
+
+  .navbar-nav .nav-link.active,
+  .navbar-nav .nav-link:hover {
+    background-color: #0dcaf0; 
+    color: white;
   }
 
   .navbar-nav .nav-link::after {
@@ -121,5 +123,27 @@
 
   .navbar-nav .nav-link.active::after {
     transform: translateX(-50%) scaleX(1);
+  }
+
+  
+  .search-wrapper input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .search-wrapper input::-ms-clear {
+    display: none;
+  }
+
+  .search-wrapper input[type="search"] {
+    -moz-appearance: textfield;
+  }
+
+  .search-wrapper input:focus {
+    border-color: #0dcaf0;
+    outline: none;
+  }
+
+  .search-wrapper button:hover {
+    color: #0dcaf0;
   }
 </style>

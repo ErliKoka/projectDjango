@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="text-center fw-bold mb-5" style="color: #17c1e8;">Checkout page</h2>
+
+  <form method="POST" action="{% url 'checkout' %}" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="row g-5">
+
+      
+      <div class="col-md-6">
+        <div class="p-4 rounded shadow-lg" style="background-color: #fff; border: 1px solid #17c1e8;">
+          <h4 class="mb-4" style="color: #17c1e8;"></h4>
+
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="first_name" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Name</label>
+              <input type="text" name="first_name" id="first_name" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your first name">
+              <div class="invalid-feedback">Please enter your first name.</div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="last_name" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Surname</label>
+              <input type="text" name="last_name" id="last_name" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your surname">
+              <div class="invalid-feedback">Please enter your surname.</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="phone" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Phone number</label>
+              <input type="tel" id="phone" name="phone" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your phone number" pattern="\+?[0-9]{1,15}">
+              <div class="invalid-feedback">Please enter a valid phone number.</div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Email</label>
+              <input type="email" name="email" id="email" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your email address">
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="country" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Country</label>
+            <select class="form-select" name="country" id="country" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required>
+              <option value="albania" selected>Albania</option>
+              <option value="usa">USA</option>
+              <option value="uk">United Kingdom</option>
+              <option value="canada">Canada</option>
+              <option value="australia">Australia</option>
+              <option value="germany">Germany</option>
+              <option value="france">France</option>
+              <option value="spain">Spain</option>
+              <option value="italy">Italy</option>
+              <option value="india">India</option>
+              <option value="china">China</option>
+              <option value="brazil">Brazil</option>
+              <option value="south_korea">South Korea</option>
+              <option value="japan">Japan</option>
+              <option value="mexico">Mexico</option>
+              <option value="russia">Russia</option>
+              <option value="sweden">Sweden</option>
+              <option value="switzerland">Switzerland</option>
+              <option value="netherlands">Netherlands</option>
+              <option value="belgium">Belgium</option>
+              <option value="sweden">Sweden</option>
+              <option value="norway">Norway</option>
+              <option value="denmark">Denmark</option>
+              <option value="finland">Finland</option>
+              <option value="portugal">Portugal</option>
+              <option value="greece">Greece</option>
+              <option value="argentina">Argentina</option>
+              <option value="south_africa">South Africa</option>
+              <option value="uae">United Arab Emirates</option>
+              <option value="singapore">Singapore</option>
+              <option value="new_zealand">New Zealand</option>
+              <option value="poland">Poland</option>
+              <option value="turkey">Turkey</option>
+              <option value="egypt">Egypt</option>
+              <option value="kenya">Kenya</option>
+              <option value="chile">Chile</option>
+              
+            </select>
+            <div class="invalid-feedback">Please select your country.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="city" class="form-label" style="font-weight: bold; font-size: 1.1rem;">City</label>
+            <input type="text" name="city" id="city" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your city">
+            <div class="invalid-feedback">Please enter your city.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Address</label>
+            <textarea name="address" id="address" rows="4" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your delivery address"></textarea>
+            <div class="invalid-feedback">Please enter your address.</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" style="font-weight: bold; font-size: 1.1rem;">Payment method</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="payment_method" id="payment_cash" value="Cash" checked style="margin-right: 10px;" onclick="togglePaymentMethod()">
+              <label class="form-check-label" for="payment_cash">
+                <span class="material-icons" style="vertical-align: middle;">attach_money</span> Pay CASH on delivery
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="payment_method" id="payment_card" value="Card" style="margin-right: 10px;" onclick="togglePaymentMethod()">
+              <label class="form-check-label" for="payment_card">
+                <span class="material-icons" style="vertical-align: middle;">credit_card</span> Pay with card
+              </label>
+            </div>
+          </div>
+
+          
+          <div id="card_details" style="display: none;">
+            <div class="mb-3">
+              <label for="card_number" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Card Number</label>
+              <input type="text" name="card_number" id="card_number" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter your card number" pattern="\d{16}">
+              <div class="invalid-feedback">Please enter a valid card number.</div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="expiry_date" class="form-label" style="font-weight: bold; font-size: 1.1rem;">Expiry Date</label>
+                <input type="month" name="expiry_date" id="expiry_date" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required>
+                <div class="invalid-feedback">Please enter the expiry date.</div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="cvv" class="form-label" style="font-weight: bold; font-size: 1.1rem;">CVV</label>
+                <input type="text" name="cvv" id="cvv" class="form-control" style="border-radius: 8px; background-color: #f8f9fa; border: 1px solid #17c1e8; padding: 12px;" required placeholder="Enter CVV" pattern="\d{3}">
+                <div class="invalid-feedback">Please enter a valid CVV.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      
+      <div class="col-md-6">
+        <div class="card shadow-lg" style="background-color: #fff; color: #000; border: 1px solid #17c1e8;">
+          <div class="card-header text-center fw-bold" style="background-color: #17c1e8; color: #fff; font-size: 1.2rem; padding: 15px;">
+            Products in your cart
+          </div>
+          <ul class="list-group list-group-flush" style="padding-left: 0; list-style-type: none; margin-bottom: 0;">
+            {% for item in cart_items %}
+              <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; color: #000; padding: 12px;">
+                {{ item.quantity }} × {{ item.item.item_name }}
+                <span>{{ item.subtotal }} &euro; </span>
+              </li>
+            {% endfor %}
+            <li class="list-group-item fw-bold fs-5 d-flex justify-content-between" style="background-color: #f8f9fa; color: #000; border-top: 1px solid #17c1e8; padding: 12px;">
+              Total:
+              <span>{{ total_price }} &euro;</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-dark" style="background-color: #17c1e8; color: white; padding: 12px 40px; font-size: 1.1rem; border: none; border-radius: 50px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+            Place order
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<script>
+  
+  function togglePaymentMethod() {
+    const cardDetailsDiv = document.getElementById('card_details');
+    const isCardSelected = document.getElementById('payment_card').checked;
+
+    
+    if (isCardSelected) {
+      cardDetailsDiv.style.display = 'block';  
+    } else {
+      cardDetailsDiv.style.display = 'none';  
+    }
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', togglePaymentMethod);
+</script>
+
+{% endblock %}

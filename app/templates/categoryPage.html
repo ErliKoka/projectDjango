@@ -1,30 +1,126 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
-    <img src="{{categoryDetail.category_image.url}}" class="img-fluid">
-    <h1>{{categoryDetail.category_name}}</h1>
-    <p>{{categoryDetail.category_Description}}</p>
-    <h1>Items in Category</h1>
-    <div class="row">
-        {% for item in categoryItems %}
-         <div class="col-12 col-md-6 col-lg-4">
-            <div class="card h-100">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{item.item_image.url}}" class="card-img-top h-100" alt="...">
-                    <div class="card-body h-100">
-                        <!-- item emri i variablit cfaredo tek for -->
-                         <!-- item_name emri i fushes tek modeli -->
-                        <h5 class="card-title">{{item.item_name}}</h5>
-                        <p class="card-text">{{item.item_description}}</p>
-                        <a href="{% url 'detailitemPage' item.pk %}" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-         
+
+<div class="container py-5">
+  
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-primary mb-3" style="font-size: 2.5rem;">{{ categoryDetail.category_name }}</h1>
+    <p class="text-muted fs-5" style="font-style: italic; color: #6c757d;">{{ categoryDetail.category_Description }}</p>
+  </div>
+
+  
+  <h2 class="mb-4 text-center text-secondary"></h2>
+  <div class="row g-4">
+    {% for item in page_obj %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-lg border-0 rounded-3 hover-shadow">
+        <img src="{{ item.item_image.url }}" class="card-img-top" alt="{{ item.item_name }}" style="height: 250px; object-fit: cover;">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title" style="font-size: 1.2rem; font-weight: 600; color: #333;">{{ item.item_name }}</h5>
+
+          
+          <p class="card-text price" style="font-size: 1.25rem; font-weight: bold; color: #28a745; margin-top: auto;">
+            €{{ item.item_price }}
+          </p>
+
+          <a href="{% url 'detailitemPage' item.pk %}" class="btn btn-outline-primary mt-auto transition-shadow">View Details</a>
         </div>
-        {% endfor %}
+      </div>
     </div>
+    {% empty %}
+      <p class="text-center text-muted">No items found in this category.</p>
+    {% endfor %}
+  </div>
+
+  
+  <div class="d-flex justify-content-center mt-4">
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="page-link">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Last &raquo;</a>
+      {% endif %}
+    </div>
+  </div>
 </div>
+
+<style>
+  
+  .card:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+
+  .transition-shadow:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  
+  body {
+    background-color: #f8f9fa;
+  }
+
+  .container {
+    max-width: 1200px;
+  }
+
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  
+  .card-body {
+    padding: 20px;
+  }
+
+  
+  .price {
+    font-size: 1.25rem; 
+    font-weight: bold;  
+    color: #28a745;     
+    margin-top: auto;   
+  }
+
+  
+  .btn-outline-primary {
+    font-weight: 500;
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  
+  .pagination {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .pagination a {
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .pagination a:hover {
+    background-color: #0056b3;
+  }
+
+</style>
 
 {% endblock %}
